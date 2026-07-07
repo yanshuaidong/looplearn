@@ -89,7 +89,7 @@ body {
 .deck {
   position: fixed; inset: 0;
   background: #F4E8C8;
-  color: #1E293B;
+  color: #171512;
 }
 
 .slides-wrapper {
@@ -134,28 +134,28 @@ body {
 
 .progress-bar {
   position: fixed; top: 0; left: 0; right: 0; height: 3px;
-  background: #E2E8F0; z-index: 100;
+  background: rgba(93, 67, 33, 0.16); z-index: 100;
 }
 .progress-fill {
-  height: 100%; background: linear-gradient(90deg, #0D9488, #2563EB);
+  height: 100%; background: linear-gradient(90deg, #4E6750, #C28E2D);
   transition: width 0.4s ease;
 }
 .slide-counter {
   position: fixed; top: 16px; right: 24px;
-  font-size: 13px; color: #94A3B8; z-index: 100;
+  font-size: 13px; color: rgba(58, 52, 43, 0.55); z-index: 100;
   font-weight: 500;
 }
 .nav-btn {
   position: fixed; top: 50%; transform: translateY(-50%);
-  background: #FFFFFF; border: 1.5px solid #E2E8F0;
-  color: #64748B; font-size: 28px; width: 44px; height: 44px;
+  background: rgba(255, 252, 242, 0.72); border: 1.5px solid rgba(93, 67, 33, 0.16);
+  color: #4E6750; font-size: 28px; width: 44px; height: 44px;
   border-radius: 50%; cursor: pointer; z-index: 100;
   transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
 }
 .nav-btn:hover:not(:disabled) {
-  background: #CCFBF1; border-color: #0D9488; color: #0D9488;
-  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.15);
+  background: rgba(255, 252, 242, 0.9); border-color: rgba(194, 142, 45, 0.45); color: #C28E2D;
+  box-shadow: 0 4px 16px rgba(68, 54, 28, 0.1);
 }
 .nav-btn:disabled { opacity: 0.3; cursor: default; }
 .nav-prev { left: 20px; }
@@ -166,22 +166,24 @@ body {
 }
 .dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: #CBD5E1; border: none; cursor: pointer;
+  background: rgba(93, 67, 33, 0.22); border: none; cursor: pointer;
   transition: all 0.2s;
 }
-.dot.active { background: #0D9488; width: 20px; border-radius: 3px; }
+.dot.active { background: #4E6750; width: 20px; border-radius: 3px; }
 
 .slide-tag {
-  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: #0D9488;
-  background: #CCFBF1; border: 1.5px solid rgba(13, 148, 136, 0.25);
-  padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: #4E6750;
+  margin-bottom: 14px;
 }
 .slide-title {
-  font-size: 36px; font-weight: 700; color: #1E293B;
+  font-family: Georgia, 'Times New Roman', 'Songti SC', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 500; color: #171512;
   line-height: 1.2; margin-bottom: 10px; text-align: center;
+  letter-spacing: 0;
 }
 .slide-subtitle {
-  font-size: 16px; color: #64748B; margin-bottom: 32px; text-align: center;
+  font-size: 18px; color: #4E6750; margin-bottom: 32px; text-align: center;
+  line-height: 1.7; font-weight: 600;
 }
 </style>

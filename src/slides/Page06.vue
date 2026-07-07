@@ -1,78 +1,102 @@
 <script setup lang="ts">
+import comparisonImage from '../assets/loop-engineering-mode-comparison-ai-style-transparent.png'
+
 defineProps<{ active: boolean }>()
 </script>
 
 <template>
-  <div class="slide" :class="{ active }">
-    <div class="slide-tag">对比</div>
-    <h2 class="slide-title">Prompt Engineering vs Loop Engineering</h2>
-    <div class="compare-table">
-      <div class="ct-header">
-        <div></div>
-        <div class="ct-pe">Prompt Engineering</div>
-        <div class="ct-le">Loop Engineering ✨</div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-dim">优化对象</div>
-        <div>你手写的一条指令</div>
-        <div class="ct-le-val">自动决定「提示什么/何时提示/是否可接受」的整套系统</div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-dim">工作单位</div>
-        <div>一次手动对话</div>
-        <div class="ct-le-val">跨多轮次、自动运行的完整工作流</div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-dim">成功衡量</div>
-        <div>第一个回复的质量</div>
-        <div class="ct-le-val">最终输出的结果质量</div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-dim">对 Agent 的视角</div>
-        <div>你手持的工具</div>
-        <div class="ct-le-val">你调度的长期运行进程</div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-dim">人的角色</div>
-        <div>提问者</div>
-        <div class="ct-le-val">规则制定者 / 系统设计者</div>
-      </div>
-    </div>
-    <div class="compare-note">
-      ⚠️ Prompt Engineering 没有消亡，一个 Loop 由多个 Prompt 组成。<strong>LE 是 PE 之上的层次</strong>，不是替代它。
-    </div>
+  <div class="slide comparison-slide" :class="{ active }">
+    <header class="comparison-header">
+      <h2 class="slide-title">Prompt Engineering vs Loop Engineering</h2>
+      <p class="slide-subtitle">提示词工程 vs 循环工程</p>
+    </header>
+
+    <img
+      class="comparison-image"
+      :src="comparisonImage"
+      alt="Prompt Engineering 与 Loop Engineering 的对比图"
+    />
+
+    <p class="comparison-note">
+      Prompt Engineering 并没有消亡。一个 Loop 是由多个 Prompt 组成的，写得差的 Prompt 放进 Loop 里只会让糟糕的工作以更快的速度产出。Loop Engineering 是在 Prompt Engineering 之上的层次，而不是替代它。
+    </p>
   </div>
 </template>
 
 <style scoped>
-.compare-table {
-  width: 100%; max-width: 960px; border-radius: 16px;
-  overflow: hidden; border: 1.5px solid #E2E8F0; margin-bottom: 16px;
-  box-shadow: 0 4px 24px rgba(15,23,42,0.06);
+.comparison-slide {
+  justify-content: flex-start;
+  padding: 28px 48px 24px;
+  gap: 12px;
 }
-.ct-header, .ct-row {
-  display: grid; grid-template-columns: 180px 1fr 1fr;
+
+.comparison-header {
+  width: min(1120px, 100%);
+  text-align: center;
 }
-.ct-header {
-  background: #F1F5F9; padding: 12px 20px;
-  font-size: 13px; font-weight: 600; border-bottom: 1.5px solid #E2E8F0;
+
+.comparison-header .slide-title {
+  margin-bottom: 6px;
+  font-size: clamp(26px, 2.6vw, 38px);
 }
-.ct-pe { color: #64748B; }
-.ct-le { color: #0D9488; }
-.ct-row {
-  padding: 14px 20px; font-size: 14px;
-  border-bottom: 1px solid #F1F5F9;
-  background: #FFFFFF;
-  transition: background 0.15s;
+
+.comparison-header .slide-subtitle {
+  margin-bottom: 0;
+  font-size: 15px;
+  color: var(--illus-green);
+  font-weight: 700;
 }
-.ct-row:hover { background: #F8FAFC; }
-.ct-row:last-child { border-bottom: none; }
-.ct-dim { color: #94A3B8; font-size: 13px; font-weight: 500; }
-.ct-le-val { color: #1E293B; font-weight: 500; }
-.compare-note {
-  font-size: 14px; color: #64748B; max-width: 960px; width: 100%;
-  background: #FFEDD5; border: 1.5px solid rgba(234,88,12,0.2);
-  border-radius: 12px; padding: 14px 18px;
+
+.comparison-image {
+  display: block;
+  flex: 1;
+  width: min(96vw, 1180px);
+  min-height: 0;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
+  z-index: 1;
 }
-.compare-note strong { color: #EA580C; }
+
+.comparison-note {
+  width: min(1020px, 100%);
+  margin: 0;
+  padding: 12px 18px;
+  background: rgba(255, 252, 242, 0.78);
+  border: 1.5px solid rgba(93, 67, 33, 0.16);
+  border-left: 4px solid var(--illus-gold);
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(68, 54, 28, 0.06);
+  color: var(--illus-text-secondary);
+  font-size: 14px;
+  line-height: 1.68;
+  text-align: left;
+}
+
+@media (max-width: 980px) {
+  .comparison-slide {
+    padding: 32px 20px 24px;
+    gap: 10px;
+    overflow-y: auto;
+  }
+
+  .comparison-header .slide-title {
+    font-size: clamp(22px, 5.2vw, 30px);
+  }
+
+  .comparison-header .slide-subtitle {
+    font-size: 14px;
+  }
+
+  .comparison-image {
+    flex: none;
+    width: 98vw;
+    max-height: none;
+  }
+
+  .comparison-note {
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 10px 14px;
+  }
+}
 </style>

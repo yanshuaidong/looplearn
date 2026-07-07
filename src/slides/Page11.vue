@@ -5,15 +5,20 @@ defineProps<{ active: boolean }>()
 
 <template>
   <div class="slide slide-element" :class="{ active }">
-    <div class="el-badge el-b-4">04 / Connectors</div>
-    <div class="el-title-row">
-      <div class="el-icon-wrap" style="background:#EDE9FE"><IllusIcon name="plug" :size="32" color="#7C3AED" /></div>
-      <div>
-        <h2>MCP 连接器</h2>
-        <p class="el-subtitle">把 Loop 从文件系统扩展到你的真实工具链</p>
-      </div>
-    </div>
     <div class="el-two-col">
+      <div class="summary-panel">
+        <div class="el-badge el-b-4">04 / Connectors</div>
+        <div class="el-title-row">
+          <div class="el-icon-wrap"><IllusIcon name="plug" :size="32" color="#8A5A2D" /></div>
+          <div>
+            <h2>MCP 连接器</h2>
+            <p class="el-subtitle">把 Loop 从文件系统扩展到你的真实工具链。</p>
+          </div>
+        </div>
+        <div class="core-statement">
+          Connector 让 Loop 能读取任务系统、调用 API、发通知，把结果送回真实工作流。
+        </div>
+      </div>
       <div class="el-explain">
         <div class="el-point">
           <span class="dot dot-purple">●</span>
@@ -31,36 +36,36 @@ defineProps<{ active: boolean }>()
           <div class="hl-before">❌ Agent 说：「这里是修复方案」</div>
           <div class="hl-after">✅ Loop 自动：开 PR → 关联 Ticket → CI 通过后通知频道</div>
         </div>
-      </div>
-      <div class="connector-tools">
-        <div class="ct-item"><IllusIcon name="plug" :size="20" color="#7C3AED" /> GitHub</div>
-        <div class="ct-item"><IllusIcon name="document" :size="20" color="#7C3AED" /> Linear</div>
-        <div class="ct-item"><IllusIcon name="quote" :size="20" color="#7C3AED" /> Slack</div>
-        <div class="ct-item"><IllusIcon name="memory" :size="20" color="#7C3AED" /> 数据库</div>
-        <div class="ct-item"><IllusIcon name="search" :size="20" color="#7C3AED" /> Staging API</div>
-        <div class="ct-item"><IllusIcon name="gear" :size="20" color="#7C3AED" /> CI / CD</div>
+        <div class="connector-tools">
+          <div class="ct-item"><IllusIcon name="plug" :size="20" color="#8A5A2D" /> GitHub</div>
+          <div class="ct-item"><IllusIcon name="document" :size="20" color="#8A5A2D" /> Linear</div>
+          <div class="ct-item"><IllusIcon name="quote" :size="20" color="#8A5A2D" /> Slack</div>
+          <div class="ct-item"><IllusIcon name="memory" :size="20" color="#8A5A2D" /> 数据库</div>
+          <div class="ct-item"><IllusIcon name="search" :size="20" color="#8A5A2D" /> Staging API</div>
+          <div class="ct-item"><IllusIcon name="gear" :size="20" color="#8A5A2D" /> CI / CD</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.dot-purple { color: #7C3AED; flex-shrink: 0; }
+.dot-purple { color: #8A5A2D; flex-shrink: 0; }
 .connector-tools {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
   align-content: start;
 }
 .ct-item {
-  background: #FFFFFF; border: 1.5px solid rgba(124,58,237,0.2);
-  border-radius: 12px; padding: 14px 18px; display: flex; align-items: center;
-  gap: 10px; font-size: 14px; color: #334155; font-weight: 500;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+  background: rgba(255, 252, 242, 0.68); border: 1.5px solid rgba(93,67,33,0.16);
+  border-radius: 8px; padding: 12px 14px; display: flex; align-items: center;
+  gap: 10px; font-size: 14px; color: #3A342B; font-weight: 600;
+  box-shadow: 0 8px 18px rgba(68,54,28,0.06);
 }
 .el-highlight {
-  background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 12px;
+  background: rgba(255, 252, 242, 0.68); border: 1.5px solid rgba(93,67,33,0.16); border-radius: 8px;
   padding: 16px; margin-top: 4px;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+  box-shadow: 0 8px 18px rgba(68,54,28,0.06);
 }
-.hl-before { color: #E11D48; font-size: 13px; margin-bottom: 8px; }
-.hl-after { color: #0D9488; font-size: 13px; font-weight: 500; }
+.hl-before { color: #A8463E; font-size: 13px; margin-bottom: 8px; }
+.hl-after { color: #4E6750; font-size: 13px; font-weight: 700; }
 </style>

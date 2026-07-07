@@ -5,15 +5,20 @@ defineProps<{ active: boolean }>()
 
 <template>
   <div class="slide slide-element" :class="{ active }">
-    <div class="el-badge el-b-3">03 / Skills</div>
-    <div class="el-title-row">
-      <div class="el-icon-wrap" style="background:#FFEDD5"><IllusIcon name="document" :size="32" color="#EA580C" /></div>
-      <div>
-        <h2>技能文件</h2>
-        <p class="el-subtitle">让 Agent 不再每次会话都要重新推断你的项目上下文</p>
-      </div>
-    </div>
     <div class="el-two-col">
+      <div class="summary-panel">
+        <div class="el-badge el-b-3">03 / Skills</div>
+        <div class="el-title-row">
+          <div class="el-icon-wrap"><IllusIcon name="document" :size="32" color="#C28E2D" /></div>
+          <div>
+            <h2>技能文件</h2>
+            <p class="el-subtitle">让 Agent 不再每次会话都要重新推断你的项目上下文。</p>
+          </div>
+        </div>
+        <div class="core-statement">
+          Skill 把团队约定、构建步骤和历史教训固化下来，让每一次 Loop 都从更好的起点开始。
+        </div>
+      </div>
       <div class="el-explain">
         <div class="el-point">
           <span class="dot dot-orange">●</span>
@@ -31,10 +36,9 @@ defineProps<{ active: boolean }>()
           <span class="dot dot-orange">●</span>
           <div>Skill 是<strong>编写格式</strong>，Plugin 是<strong>分发方式</strong>，打包后队友一次安装即可</div>
         </div>
-      </div>
-      <div class="illus-code">
-        <div class="code-label">SKILL.md 示例</div>
-        <pre><code>---
+        <div class="illus-code">
+          <div class="code-label">SKILL.md 示例</div>
+          <pre><code>---
 name: project-conventions
 description: 代码规范和构建步骤
 ---
@@ -53,8 +57,11 @@ description: 代码规范和构建步骤
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
-.dot-orange { color: #EA580C; flex-shrink: 0; }
+.dot-orange { color: #C28E2D; flex-shrink: 0; }
+.illus-code pre { padding: 12px 14px; max-height: 300px; }
+.illus-code code { font-size: 11px; line-height: 1.55; }
 </style>

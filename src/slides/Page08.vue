@@ -5,15 +5,20 @@ defineProps<{ active: boolean }>()
 
 <template>
   <div class="slide slide-element" :class="{ active }">
-    <div class="el-badge el-b-1">01 / Automations</div>
-    <div class="el-title-row">
-      <div class="el-icon-wrap" style="background:#DBEAFE"><IllusIcon name="clock" :size="32" color="#2563EB" /></div>
-      <div>
-        <h2>自动触发器</h2>
-        <p class="el-subtitle">让 Loop 成为真正的循环，而不只是你做了一次的操作</p>
-      </div>
-    </div>
     <div class="el-two-col">
+      <div class="summary-panel">
+        <div class="el-badge el-b-1">01 / Automations</div>
+        <div class="el-title-row">
+          <div class="el-icon-wrap"><IllusIcon name="clock" :size="32" color="#4E6750" /></div>
+          <div>
+            <h2>自动触发器</h2>
+            <p class="el-subtitle">让 Loop 成为真正的循环，而不只是你做了一次的操作。</p>
+          </div>
+        </div>
+        <div class="core-statement">
+          Automation 是 Loop 的心跳：它负责按节奏唤醒系统，让 Agent 自己发现下一轮工作。
+        </div>
+      </div>
       <div class="el-explain">
         <div class="el-point">
           <span class="dot dot-blue">●</span>
@@ -31,10 +36,9 @@ defineProps<{ active: boolean }>()
           <span class="dot dot-blue">●</span>
           <div>发现内容进 <strong>Triage 收件箱</strong>，无发现自动归档</div>
         </div>
-      </div>
-      <div class="illus-code">
-        <div class="code-label">Claude Code 示例</div>
-        <pre><code><span class="c"># 每天工作日早上 9 点触发</span>
+        <div class="illus-code">
+          <div class="code-label">Claude Code 示例</div>
+          <pre><code><span class="c"># 每天工作日早上 9 点触发</span>
 /loop "Read yesterday's CI failures
 and open issues, write findings
 to TODO.md" \
@@ -46,8 +50,9 @@ pass and lint is clean"</code></pre>
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
-.dot-blue { color: #2563EB; flex-shrink: 0; }
+.dot-blue { color: #4E6750; flex-shrink: 0; }
 </style>

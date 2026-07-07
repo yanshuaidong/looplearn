@@ -5,15 +5,20 @@ defineProps<{ active: boolean }>()
 
 <template>
   <div class="slide slide-element" :class="{ active }">
-    <div class="el-badge el-b-2">02 / Worktrees</div>
-    <div class="el-title-row">
-      <div class="el-icon-wrap" style="background:#CCFBF1"><IllusIcon name="tree" :size="32" color="#0D9488" /></div>
-      <div>
-        <h2>并行隔离</h2>
-        <p class="el-subtitle">让多个 Agent 并行工作而互不干扰</p>
-      </div>
-    </div>
     <div class="el-two-col">
+      <div class="summary-panel">
+        <div class="el-badge el-b-2">02 / Worktrees</div>
+        <div class="el-title-row">
+          <div class="el-icon-wrap"><IllusIcon name="tree" :size="32" color="#4E6750" /></div>
+          <div>
+            <h2>并行隔离</h2>
+            <p class="el-subtitle">让多个 Agent 并行工作而互不干扰。</p>
+          </div>
+        </div>
+        <div class="core-statement">
+          Worktree 让并行变得可控：每个 Agent 有自己的工作目录、自己的分支、共享同一段历史。
+        </div>
+      </div>
       <div class="el-explain">
         <div class="el-point">
           <span class="dot dot-green">●</span>
@@ -31,10 +36,9 @@ defineProps<{ active: boolean }>()
           <span class="dot dot-yellow">⚠</span>
           <div>消除了<strong>机械冲突</strong>，但你的 Review 带宽才是并行数量的真正上限</div>
         </div>
-      </div>
-      <div class="illus-code">
-        <div class="code-label">使用方式</div>
-        <pre><code><span class="c"># 手动创建 worktree</span>
+        <div class="illus-code">
+          <div class="code-label">使用方式</div>
+          <pre><code><span class="c"># 手动创建 worktree</span>
 git worktree add \
   ../agent-fix-auth \
   feature/fix-auth-tests
@@ -47,9 +51,10 @@ isolation: worktree  <span class="c"># 自动隔离</span>
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
-.dot-green { color: #16A34A; flex-shrink: 0; }
-.dot-yellow { color: #CA8A04; flex-shrink: 0; }
+.dot-green { color: #4E6750; flex-shrink: 0; }
+.dot-yellow { color: #C28E2D; flex-shrink: 0; }
 </style>
