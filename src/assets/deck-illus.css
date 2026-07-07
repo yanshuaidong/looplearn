@@ -1,0 +1,137 @@
+/* Loop Engineering Deck — 明亮半扁平插画风格 Design Tokens */
+:root {
+  --illus-bg: #F4E8C8;
+  --illus-bg-warm: #F4E8C8;
+  --illus-surface: #FFFFFF;
+  --illus-surface-muted: #F1F5F9;
+  --illus-text: #1E293B;
+  --illus-text-secondary: #64748B;
+  --illus-text-muted: #94A3B8;
+  --illus-teal: #0D9488;
+  --illus-teal-light: #CCFBF1;
+  --illus-teal-soft: rgba(13, 148, 136, 0.08);
+  --illus-blue: #2563EB;
+  --illus-blue-light: #DBEAFE;
+  --illus-blue-soft: rgba(37, 99, 235, 0.08);
+  --illus-orange: #EA580C;
+  --illus-orange-light: #FFEDD5;
+  --illus-orange-soft: rgba(234, 88, 12, 0.08);
+  --illus-purple: #7C3AED;
+  --illus-purple-light: #EDE9FE;
+  --illus-purple-soft: rgba(124, 58, 237, 0.08);
+  --illus-coral: #E11D48;
+  --illus-coral-light: #FFE4E6;
+  --illus-coral-soft: rgba(225, 29, 72, 0.08);
+  --illus-cyan: #0891B2;
+  --illus-cyan-light: #CFFAFE;
+  --illus-cyan-soft: rgba(8, 145, 178, 0.08);
+  --illus-green: #16A34A;
+  --illus-green-light: #DCFCE7;
+  --illus-green-soft: rgba(22, 163, 74, 0.08);
+  --illus-yellow: #CA8A04;
+  --illus-yellow-light: #FEF9C3;
+  --illus-border: #E2E8F0;
+  --illus-border-strong: #CBD5E1;
+  --illus-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+  --illus-shadow-md: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --illus-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --illus-radius: 12px;
+  --illus-radius-lg: 16px;
+  --illus-radius-xl: 20px;
+  --illus-stroke: 2;
+}
+
+/* 幻灯片背景装饰 */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(93, 67, 33, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 67, 33, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px, 44px 44px;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+/* 共享卡片 */
+.illus-card {
+  background: var(--illus-surface);
+  border: 1.5px solid var(--illus-border);
+  border-radius: var(--illus-radius);
+  box-shadow: var(--illus-shadow-sm);
+}
+
+/* 代码块 — 浅色主题 */
+.illus-code {
+  background: var(--illus-surface-muted);
+  border: 1.5px solid var(--illus-border);
+  border-radius: var(--illus-radius);
+  overflow: hidden;
+  box-shadow: var(--illus-shadow-sm);
+}
+.illus-code .code-label {
+  padding: 8px 16px;
+  background: var(--illus-surface);
+  border-bottom: 1.5px solid var(--illus-border);
+  font-size: 12px;
+  color: var(--illus-text-muted);
+  font-weight: 600;
+}
+.illus-code pre { padding: 16px; overflow: auto; margin: 0; }
+.illus-code code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--illus-text);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.illus-code .c { color: var(--illus-text-muted); }
+
+/* 要素页共享 */
+.slide-element { align-items: flex-start; padding: 50px 80px; }
+.el-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+.el-b-1 { background: var(--illus-blue-light); border: 1.5px solid rgba(37, 99, 235, 0.25); color: var(--illus-blue); }
+.el-b-2 { background: var(--illus-teal-light); border: 1.5px solid rgba(13, 148, 136, 0.25); color: var(--illus-teal); }
+.el-b-3 { background: var(--illus-orange-light); border: 1.5px solid rgba(234, 88, 12, 0.25); color: var(--illus-orange); }
+.el-b-4 { background: var(--illus-purple-light); border: 1.5px solid rgba(124, 58, 237, 0.25); color: var(--illus-purple); }
+.el-b-5 { background: var(--illus-coral-light); border: 1.5px solid rgba(225, 29, 72, 0.25); color: var(--illus-coral); }
+.el-b-6 { background: var(--illus-cyan-light); border: 1.5px solid rgba(8, 145, 178, 0.25); color: var(--illus-cyan); }
+.el-title-row { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.el-icon-wrap {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.el-title-row h2 { font-size: 28px; font-weight: 700; color: var(--illus-text); margin-bottom: 4px; }
+.el-subtitle { font-size: 15px; color: var(--illus-text-secondary); }
+.el-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+.el-explain { display: flex; flex-direction: column; gap: 14px; }
+.el-point { display: flex; gap: 10px; font-size: 14px; color: var(--illus-text-secondary); line-height: 1.6; align-items: flex-start; }
+.el-point strong { color: var(--illus-text); }
+.el-point code {
+  background: var(--illus-teal-light);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--illus-teal);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .progress-fill, .nav-btn, .dot, .el-card, .evo-step { transition: none !important; }
+}

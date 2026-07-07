@@ -1,0 +1,285 @@
+---
+name: illustration-style
+description: >-
+  Guides web illustration style selection, design system specs, and implementation
+  (SVG/CSS/Lottie). Use when creating or reviewing website illustrations, hero
+  visuals, icon systems, empty states, infographics, choosing flat/isometric/3D/
+  hand-drawn styles, or implementing illustrated UI components.
+---
+
+# 网页插画风格指导
+
+帮助 Agent 为网页选择、设计并实现一致的插画风格。插画风格不是装饰偏好，而是品牌语气、信息密度和技术约束的综合决策。
+
+## 何时启用
+
+- 用户要求设计/实现网页插画、Hero 图、空状态、引导页、信息图
+- 需要选择或统一插画风格（扁平、等距、3D、手绘、线稿等）
+- 审查现有插画是否符合品牌、可访问性、性能要求
+- 决定 SVG / CSS / Lottie / 位图 的技术方案
+
+## 工作流程
+
+```
+1. 明确沟通目标 → 2. 选择风格方向 → 3. 定义设计规范 → 4. 选择技术格式 → 5. 实现与验收
+```
+
+### Step 1：明确沟通目标
+
+先回答四个问题，再选风格：
+
+| 问题 | 影响 |
+|------|------|
+| 受众是谁？（开发者 / 消费者 / 企业采购） | 决定正式度与细节密度 |
+| 插画要传达什么？（概念 / 流程 / 情感 / 功能） | 决定信息架构与投影方式 |
+| 出现场景？（Hero / 内联图标 / 空状态 / 长文配图） | 决定尺寸、复杂度、动画需求 |
+| 品牌气质？（精确技术 / 友好亲和 / 创意活泼） | 决定形状语言与色彩约束 |
+
+**原则：理解优先于装饰。** 每张插画必须让用户在几秒内抓住核心概念；纯装饰性插画应克制使用。
+
+### Step 2：风格选择决策矩阵
+
+| 沟通目标 | 推荐风格 | 避免 |
+|----------|----------|------|
+| SaaS 产品 UI、图标系统、引导页 | 扁平 / 半扁平 (Flat 2.0) | 过度写实 3D |
+| 解释系统架构、空间关系、技术流程 | 等距 (Isometric) / 几何 | 手绘涂鸦（降低可信度） |
+| 降低认知门槛、博客/教育内容 | 手绘 / 线稿 / 涂鸦角色 | 冷峻技术风 |
+| 企业级 B2B、工程/金融类产品 | 几何扁平 + 轻纹理 | 充气 3D、卡通角色 |
+| 营销 Hero、品牌差异化 | 3D 软体 / 渐变矢量 / 编辑风线稿 | 通用 Stock 插画 |
+| 数据与证据呈现 | 极简编辑风 / 信息图 | 高装饰性风格 |
+| 开发者工具、技术文档 | 抽象数据可视化 / 精确线稿 | 幼稚涂鸦风 |
+
+#### 主流风格速查
+
+**扁平 (Flat)** — 二维、纯色块、极少阴影渐变。适合 UI、图标、快速量产。风险：过度同质化。
+
+**半扁平 (Flat 2.0)** — 在扁平基础上加入轻阴影、微渐变、层次叠放。2020s 后 SaaS 默认风格，兼顾亲和力与可扩展性。
+
+**线稿 (Line Art)** — 以描边承载形态，通常 2–3 级线宽（外轮廓 / 内部 / 细节）。适合编辑、品牌、技术文档。矢量可无限缩放。
+
+**等距 (Isometric)** — 30° 轴测投影，平行线无灭点，三轴等比。适合架构图、硬件拓扑、产品生态展示。**同一画面内不要混用等距与正交/透视。**
+
+**几何 (Geometric)** — 圆/方/三角构建，强调结构与秩序。适合科技、金融、现代品牌。
+
+**3D 渲染** — Blender / Spline 等产出，软陶 (Clay) 或高光泽风格。适合 Hero 与高端品牌感。成本高、文件重，移动端需优化。
+
+**手绘 / 涂鸦 (Hand-drawn / Sketchy)** — 有机线条、不完美笔触，传递人性与温度。适合叙事、教育、创意品牌。网页可用 SVG 位移滤镜模拟（见技术章节）。
+
+**角色插画 (Character)** — 通过轮廓、比例、形状语言传达性格。圆角=友好，尖角=紧张。注意避免 "Corporate Memphis"（不成比例肢体 + 通用 SaaS 风）除非刻意为之。
+
+**黏土态 (Claymorphism)** — UI 趋势：圆润、粉彩、内外阴影模拟可塑质感。适合友好型消费产品，不适合严肃 B2B。
+
+### Step 3：定义插画设计规范
+
+为项目建立最小规范集（可写入 design tokens）：
+
+#### 形状语言
+
+- 选择主导方向：**几何** / **有机** / **混合**（选定后全站一致）
+- 圆角半径：与 UI `border-radius` 对齐（如小元素 2px、卡片 8–12px）
+- 描边粗细：主描边 2px，细节 1px，虚线用于次要连接
+- 投影方式：同一画面只选一种（无投影 / 轻投影 / 长投影）
+
+#### 色彩
+
+- 每幅插画 **≤ 4 种语义色** + 中性色；超出时用透明度或线型区分
+- 仅使用品牌色板与设计 token，不临时发明颜色
+- 渐变：限定品牌渐变方向与色阶（如 teal → purple，左→右或上→下）
+- 深色模式：优先 `currentColor` + CSS 变量；或提供 light/dark 双版本
+
+#### 构图与留白
+
+- 画板内边距 ≥ 24px，防止嵌入布局时被裁切
+- 对齐 8px 网格（与 UI 间距 scale 一致）
+- 单一明确焦点；负空间 intentionally，不填满每个角落
+- Hero 插画：视觉重心偏一侧，为标题/CTA 留出呼吸区
+
+#### 投影与视角（三选一，画面内不混用）
+
+| 类型 | 适用 | 示例 |
+|------|------|------|
+| 等距 | 系统架构、硬件、建筑 | 数据中心平面图 |
+| 扁平/轮廓 | 图标、内联点缀、功能说明 | 传感器状态图标 |
+| 正交 | 技术示意图、数据流 | API 管道接线图 |
+
+#### 命名与资产组织
+
+```
+hero-{topic}-{variant}.svg
+icon-{name}.svg
+spot-{feature}.svg
+empty-{state}.svg
+```
+
+小写、连字符、语义化。集中存放于 `assets/illustrations/` 或设计系统库。
+
+### Step 4：技术格式选择
+
+| 场景 | 首选 | 备选 | 避免 |
+|------|------|------|------|
+| 可缩放矢量、主题切换 | SVG + CSS 变量 | — | 未优化的巨型 SVG |
+| 微交互（hover、loading） | SVG + CSS 动画 | — | GIF |
+| 复杂 AE 时间轴、路径变形 | Lottie (.json / .lottie) | Rive | 多实例同时播放 |
+| 邮件客户端 | PNG @2x | — | SVG 动画 |
+| 照片级纹理 / 复杂光影 | WebP / AVIF @2x | PNG @2x | 未压缩 PNG |
+| 交互式 3D Hero | Three.js / Spline embed | 预渲染视频 | 全页 WebGL 无降级 |
+
+**默认推荐：SVG。** 可缩放、可主题化、可 SEO/无障碍、无 JS 运行时。
+
+#### SVG 实现要点
+
+```html
+<!-- 响应式：用 viewBox，避免固定 width/height -->
+<svg viewBox="0 0 400 300" aria-hidden="true" role="img">
+  <title>数据从传感器流向云端</title>
+  <!-- 形状组 -->
+</svg>
+
+<!-- 主题感知 -->
+<style>
+  .illus-stroke { stroke: var(--color-brand-primary, currentColor); }
+  .illus-fill   { fill: var(--color-surface-muted); }
+</style>
+```
+
+- 导出前用 SVGO 优化；移除编辑器元数据
+- 装饰性插画：`aria-hidden="true"`
+- 传达信息的插画：`<title>` + 必要时 `aria-label`；旁边配 HTML 文字说明
+- **文字优先用 HTML 叠加**，而非 SVG `<text>`（利于翻译、搜索、样式）
+
+#### 手绘风 SVG 滤镜（可选）
+
+用 `feTurbulence` + `feDisplacementMap` 为几何图形添加手绘抖动：
+
+```svg
+<defs>
+  <filter id="sketchy" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4"/>
+    <feDisplacementMap in="SourceGraphic" scale="1.5"/>
+  </filter>
+</defs>
+<g filter="url(#sketchy)"><!-- 形状放这里 --></g>
+<!-- 文字放在 filter 组外，保持清晰 -->
+```
+
+调参：`baseFrequency` 0.01–0.04（越低越慵懒），`scale` 1–4（越大越卡通）。**不要对文字应用滤镜。**
+
+#### 动画选择
+
+| 复杂度 | 方案 |
+|--------|------|
+| 图标旋转、淡入、位移、描边动画 | SVG + CSS（`transform`/`opacity`） |
+| 滚动驱动、数据联动 | SVG + JS 或 Lottie |
+| 50+ 图层、复杂路径变形 | Lottie（懒加载 runtime，可见时才播放） |
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .illus-animated { animation: none !important; }
+}
+```
+
+**必须**尊重 `prefers-reduced-motion`；自动播放超过 5 秒的动画需提供暂停控制。
+
+### Step 5：网页布局集成
+
+#### Hero 区
+
+- 插画与标题层级分明：标题最大，插画支撑而非竞争
+- 响应式：大屏并排（文左图右或反之），小屏堆叠（标题 → 插画 → CTA）
+- 最大宽度约束（如 1200px），插画 `max-width: 100%; height: auto`
+- 考虑 `loading="lazy"`（首屏 Hero 除外）
+
+#### 内联 / Spot 插画
+
+- 与文字基线对齐，水平间距 8–16px
+- 小尺寸（≤ 48px）用扁平/图标风，避免细节丢失
+- 支持 `prefers-color-scheme` 自动切换
+
+#### 空状态 / 错误页
+
+- 单一角色或隐喻场景 + 简短文案 + 明确 CTA
+- 情绪匹配：空列表=中性友好，错误=关切但不恐慌
+- 插画风与产品主风格一致，不临时换风格
+
+#### 信息图 / 流程图
+
+- 阅读顺序与 DOM 顺序一致（利于屏幕阅读器）
+- 步骤编号、箭头、标签清晰；色盲友好（不仅靠颜色区分）
+- 移动端允许垂直重排，不横向滚动
+
+## Do / Don't
+
+### Do
+
+- 先定风格再量产；用 mood board 或 1 张标杆图对齐团队
+- 建立模块化组件库（人物、设备、箭头、背景块可拼装）
+- 保持线宽、圆角、色数、投影在全站一致
+- 提供 good/bad 对照示例（Do & Don't 文档）
+- 测试浅色/深色模式、200% 缩放、移动端窄屏
+- 装饰插画用 `alt=""` 或 `aria-hidden`；信息插画写描述性 alt
+
+### Don't
+
+- 不要混用多种投影系统（等距 + 透视 + 扁平）于同一画面
+- 不要使用未授权的 Stock / 通用 "Corporate Memphis" 替代品牌插画（除非品牌策略如此）
+- 不要在 SVG 内嵌大量不可翻译的文字
+- 不要用 GIF 做 UI 动画（体积大、无主题、无障碍差）
+- 不要忽视对比度：信息元素在 light/dark 下均需满足 WCAG AA
+- 不要用自动播放、快速闪烁动画（癫痫风险）
+
+## 品牌气质 → 风格映射
+
+| 品牌气质 | 形状 | 色彩 | 线条 | 参考调性 |
+|----------|------|------|------|----------|
+| 技术精确 | 几何、网格对齐 | 克制，1 强调色 | 均匀 2px 描边 | 工程白皮书级排版 |
+| 友好消费 | 圆润、有机 | 暖色、中等饱和 | 软描边或无描边 | 引导页、教育 App |
+| 创意先锋 | 不规则、实验性 | 高对比、撞色 | 手绘/编辑线稿 | 媒体、设计工具 |
+| 高端企业 | 几何 + 微纹理 | 深中性 + 金属强调 | 精细线稿或轻 3D | 金融、咨询、基础设施 |
+
+## 验收清单
+
+实现完成后逐项确认：
+
+```
+- [ ] 风格与品牌气质、受众匹配
+- [ ] 单幅色彩 ≤ 4 种语义色（含强调）
+- [ ] 线宽、圆角、投影在全站一致
+- [ ] SVG 已优化，使用 viewBox / currentColor
+- [ ] 深色模式可读
+- [ ] prefers-reduced-motion 已处理
+- [ ] 信息型插画有 alt / 文字说明
+- [ ] 首屏 LCP 未因大图/多 Lottie 恶化
+- [ ] 移动端布局不溢出、不依赖横向滚动
+- [ ] 无未授权素材、无风格突兀的 Stock 图
+```
+
+## 输出格式
+
+向用户交付时，按此结构组织：
+
+```markdown
+## 风格方向
+[选定风格 + 选择理由（2–3 句）]
+
+## 设计规范
+- 形状语言 / 色板 / 线宽 / 投影 / 构图
+
+## 技术方案
+- 格式 / 动画 / 主题切换 / 文件结构
+
+## 实现要点
+- 关键 CSS/SVG 片段或组件结构
+
+## 注意事项
+- 无障碍 / 性能 / 响应式
+```
+
+## 参考来源
+
+- [NN/g — Design Systems vs Style Guides](https://www.nngroup.com/articles/design-systems-vs-style-guides/)
+- [Verdigris — Illustration Guidelines](https://design.verdigris.co/categories/illustration/guidelines)
+- [Siemens Element — Illustrations](https://github.com/siemens/element/blob/main/docs/fundamentals/illustrations.md)
+- [Linearity — Illustration Styles Guide](https://www.linearity.io/guide/illustration-styles/)
+- [Awwwards — Illustration in Web Design](https://www.awwwards.com/30-examples-of-illustration-styles-in-web-design.html)
+- [Sketchy Kit — Hand-drawn SVG Filter](https://sketchykit.com/)
+- [CSSVG — SVG vs Lottie (2026)](https://cssvg.com/blog/svg-vs-lottie)
