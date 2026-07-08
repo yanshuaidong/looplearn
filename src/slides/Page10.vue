@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IllusIcon from '../components/illustrations/IllusIcon.vue'
 defineProps<{ active: boolean }>()
 </script>
 
@@ -9,7 +8,6 @@ defineProps<{ active: boolean }>()
       <div class="summary-panel">
         <div class="el-badge el-b-3">03 / Skills</div>
         <div class="el-title-row">
-          <div class="el-icon-wrap"><IllusIcon name="document" :size="32" color="#C28E2D" /></div>
           <div>
             <h2>技能文件</h2>
             <p class="el-subtitle">让 Agent 不再每次会话都要重新推断你的项目上下文。</p>

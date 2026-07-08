@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IllusIcon from '../components/illustrations/IllusIcon.vue'
 defineProps<{ active: boolean }>()
 </script>
 
@@ -9,7 +8,6 @@ defineProps<{ active: boolean }>()
       <div class="summary-panel">
         <div class="el-badge el-b-4">04 / Connectors</div>
         <div class="el-title-row">
-          <div class="el-icon-wrap"><IllusIcon name="plug" :size="32" color="#8A5A2D" /></div>
           <div>
             <h2>MCP 连接器</h2>
             <p class="el-subtitle">把 Loop 从文件系统扩展到你的真实工具链。</p>
@@ -33,16 +31,16 @@ defineProps<{ active: boolean }>()
           <div>Claude Code 和 Codex 均原生支持 MCP，<strong>连接器通常可以跨工具复用</strong></div>
         </div>
         <div class="el-highlight">
-          <div class="hl-before">❌ Agent 说：「这里是修复方案」</div>
-          <div class="hl-after">✅ Loop 自动：开 PR → 关联 Ticket → CI 通过后通知频道</div>
+          <div class="hl-before">之前：Agent 说「这里是修复方案」</div>
+          <div class="hl-after">之后：Loop 自动开 PR → 关联 Ticket → CI 通过后通知频道</div>
         </div>
         <div class="connector-tools">
-          <div class="ct-item"><IllusIcon name="plug" :size="20" color="#8A5A2D" /> GitHub</div>
-          <div class="ct-item"><IllusIcon name="document" :size="20" color="#8A5A2D" /> Linear</div>
-          <div class="ct-item"><IllusIcon name="quote" :size="20" color="#8A5A2D" /> Slack</div>
-          <div class="ct-item"><IllusIcon name="memory" :size="20" color="#8A5A2D" /> 数据库</div>
-          <div class="ct-item"><IllusIcon name="search" :size="20" color="#8A5A2D" /> Staging API</div>
-          <div class="ct-item"><IllusIcon name="gear" :size="20" color="#8A5A2D" /> CI / CD</div>
+          <div class="ct-item">GitHub</div>
+          <div class="ct-item">Linear</div>
+          <div class="ct-item">Slack</div>
+          <div class="ct-item">数据库</div>
+          <div class="ct-item">Staging API</div>
+          <div class="ct-item">CI / CD</div>
         </div>
       </div>
     </div>

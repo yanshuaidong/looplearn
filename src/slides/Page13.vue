@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IllusIcon from '../components/illustrations/IllusIcon.vue'
 defineProps<{ active: boolean }>()
 </script>
 
@@ -9,7 +8,6 @@ defineProps<{ active: boolean }>()
       <div class="summary-panel">
         <div class="el-badge el-b-6">+ / Memory</div>
         <div class="el-title-row">
-          <div class="el-icon-wrap"><IllusIcon name="memory" :size="32" color="#4E6750" /></div>
           <div>
             <h2>持久记忆</h2>
             <p class="el-subtitle">模型在每次对话之间会完全遗忘，仓库不会。</p>

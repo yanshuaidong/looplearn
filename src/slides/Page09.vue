@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IllusIcon from '../components/illustrations/IllusIcon.vue'
 defineProps<{ active: boolean }>()
 </script>
 
@@ -9,7 +8,6 @@ defineProps<{ active: boolean }>()
       <div class="summary-panel">
         <div class="el-badge el-b-2">02 / Worktrees</div>
         <div class="el-title-row">
-          <div class="el-icon-wrap"><IllusIcon name="tree" :size="32" color="#4E6750" /></div>
           <div>
             <h2>并行隔离</h2>
             <p class="el-subtitle">让多个 Agent 并行工作而互不干扰。</p>
@@ -33,7 +31,7 @@ defineProps<{ active: boolean }>()
           <div>Claude Code 支持 <code>isolation: worktree</code>，完成后<strong>自动清理</strong></div>
         </div>
         <div class="el-point">
-          <span class="dot dot-yellow">⚠</span>
+          <span class="dot dot-yellow">●</span>
           <div>消除了<strong>机械冲突</strong>，但你的 Review 带宽才是并行数量的真正上限</div>
         </div>
         <div class="illus-code">
