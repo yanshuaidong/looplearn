@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import IllusIcon from '../components/illustrations/IllusIcon.vue'
+import riskIconSprite from '../assets/page15-risk-icons-sprite.png'
+
+const riskIconSpriteUrl = `url("${riskIconSprite}")`
+
 defineProps<{ active: boolean }>()
 </script>
 
@@ -17,7 +20,7 @@ defineProps<{ active: boolean }>()
 
       <div class="risks-grid split-right">
         <div class="risk-card">
-          <div class="risk-icon"><IllusIcon name="warning" :size="30" color="#C28E2D" /></div>
+          <div class="risk-icon"><span class="risk-logo risk-logo-validation" /></div>
           <div>
             <div class="risk-num">01</div>
             <div class="risk-title">验证仍然是你的责任</div>
@@ -26,7 +29,7 @@ defineProps<{ active: boolean }>()
           </div>
         </div>
         <div class="risk-card">
-          <div class="risk-icon"><IllusIcon name="book" :size="30" color="#A8463E" /></div>
+          <div class="risk-icon"><span class="risk-logo risk-logo-debt" /></div>
           <div>
             <div class="risk-num">02</div>
             <div class="risk-title">理解债（Comprehension Debt）</div>
@@ -35,7 +38,7 @@ defineProps<{ active: boolean }>()
           </div>
         </div>
         <div class="risk-card">
-          <div class="risk-icon"><IllusIcon name="user" :size="30" color="#8A5A2D" /></div>
+          <div class="risk-icon"><span class="risk-logo risk-logo-surrender" /></div>
           <div>
             <div class="risk-num">03</div>
             <div class="risk-title">认知投降（Cognitive Surrender）</div>
@@ -55,15 +58,32 @@ defineProps<{ active: boolean }>()
 }
 .risk-card {
   display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 14px;
+  grid-template-columns: 76px 1fr;
+  gap: 16px;
   border-radius: 8px;
   padding: 16px 18px;
   border: 1.5px solid rgba(93,67,33,0.16);
   background: rgba(255, 252, 242, 0.68);
   box-shadow: 0 8px 18px rgba(68,54,28,0.06);
 }
-.risk-icon { padding-top: 2px; }
+.risk-icon {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+.risk-logo {
+  --sprite-x: 0%;
+  display: block;
+  width: 68px;
+  height: 68px;
+  background-image: v-bind(riskIconSpriteUrl);
+  background-repeat: no-repeat;
+  background-size: 300% 100%;
+  background-position: var(--sprite-x) 0%;
+}
+.risk-logo-validation { --sprite-x: 0%; }
+.risk-logo-debt { --sprite-x: 50%; }
+.risk-logo-surrender { --sprite-x: 100%; }
 .risk-num { font-size: 13px; font-weight: 800; margin-bottom: 4px; color: rgba(58,52,43,0.5); }
 .risk-title { font-size: 16px; font-weight: 700; color: #171512; margin-bottom: 8px; }
 .risk-body { font-size: 14px; color: #3A342B; line-height: 1.72; margin-bottom: 8px; }
