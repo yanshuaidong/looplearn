@@ -44,7 +44,7 @@ defineProps<{ active: boolean }>()
             推荐第一个 Loop（零风险版）
           </div>
           <div class="tip-code">
-            <code>/loop "Read yesterday's CI failures. Write a prioritized summary to TODO.md. Do NOT edit source files. Do NOT open PRs." --schedule "0 8 * * 1-5"</code>
+            <code>/loop "读取昨天的 CI 失败记录，将按优先级排序的摘要写入 TODO.md。不要编辑源代码文件，不要开 PR。" --schedule "0 8 * * 1-5"</code>
           </div>
           <div class="tip-note">这个 Loop 每天早上帮你整理好问题清单，风险几乎为零，是理解 Loop 行为的最好起点。</div>
         </div>

@@ -48,14 +48,17 @@ defineProps<{ active: boolean }>()
 每 2 分钟执行一次，共执行 3 次后自动停止。
 
 每次只做：
+0. 读取 weather/count.md 中的「次数：N」。若 N ≥ 3，立即停止 loop。
 1. 读取并执行 @weather skill
 2. 运行 bash weather/scripts/query-beijing.sh
-3. 原样输出脚本返回的那一行文字
+3. 将 weather/count.md 更新为「次数：N+1」（只改这一行）
+4. 若 N+1 = 3，输出后停止 loop
+5. 原样输出脚本返回的那一行文字
 
 要求：
 - 总共只执行 3 次（含第一次立即执行）
-- 第 3 次输出后停止 loop，不要再继续
-- 不要创建或修改任何文件
+- 以 weather/count.md 为唯一计数依据
+- 仅允许修改 weather/count.md；不得创建或修改其他文件
 - 不要解释、不要标题、不要表格、不要多余说明
 - 每次回复只包含那一行天气文字</code></pre>
         </div>
