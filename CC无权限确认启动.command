@@ -1,7 +1,7 @@
 #!/bin/zsh
 # 专用启动器（不是「随便打开 cc」）：
 # - 先 cd 到本脚本所在仓库根目录，再启动；
-# - 固定使用 Node 22（nvm use 22)；
+# - 固定使用 Node 24（nvm use 24)；
 # - 使用 --dangerously-skip-permissions（Bypass Permissions，运行命令前不再逐项问你）。
 # 若仍出现 Bypass 免责声明：在用户级 ~/.claude/settings.json 设置
 # skipDangerousModePermissionPrompt（项目内配置无效）。
@@ -20,6 +20,6 @@ else
   exit 1
 fi
 
-nvm use 22
+nvm use 24
 
 exec claude --dangerously-skip-permissions

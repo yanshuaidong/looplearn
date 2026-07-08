@@ -1,54 +1,41 @@
 #!/usr/bin/env bash
-# 查询北京市天气（测试 Skill，仅支持北京）
+# 查询北京市当天天气，输出一行：调用时间 + 当天天气
 set -euo pipefail
 
+CALL_TIME=$(date "+%Y-%m-%d %H:%M")
 API="https://aider.meizu.com/app/weather/listWeather?cityIds=101010100"
-RESP=$(curl -sL --max-time 10 "$API")
+RESP=$(curl -sL --max-time 10 "$API" || true)
+if [[ -z "$RESP" ]]; then
+  echo "${CALL_TIME} 北京天气查询失败，请稍后重试"
+  exit 0
+fi
 
-python3 - "$RESP" <<'PY'
+python3 - "$RESP" "$CALL_TIME" <<'PY'
 import json, sys
 
-raw = sys.argv[1]
+raw, call_time = sys.argv[1], sys.argv[2]
+
 try:
     data = json.loads(raw)
 except json.JSONDecodeError:
-    print("错误：接口返回非 JSON")
-    sys.exit(1)
+    print(f"{call_time} 北京天气查询失败，请稍后重试")
+    sys.exit(0)
 
 if data.get("code") != "200" or not data.get("value"):
-    print(f"错误：接口异常 code={data.get('code')} message={data.get('message', '')}")
-    sys.exit(1)
+    print(f"{call_time} 北京天气查询失败，请稍后重试")
+    sys.exit(0)
 
-v = data["value"][0]
-rt = v.get("realtime", {})
-pm = v.get("pm25", {})
+rt = data["value"][0].get("realtime", {})
+weather = rt.get("weather", "—")
+temp = rt.get("temp", "—")
+wind = rt.get("wD", "")
+level = rt.get("wS", "")
 
-print(f"## 北京天气\n")
-print(f"**实时**（{rt.get('time', '—')}）：{rt.get('weather', '—')}，"
-      f"{rt.get('temp', '—')}℃（体感 {rt.get('sendibleTemp', '—')}℃），"
-      f"{rt.get('wD', '—')} {rt.get('wS', '—')}")
-print(f"\n**空气质量**：{pm.get('quality', '—')}，AQI {pm.get('aqi', '—')}")
+parts = [f"{call_time} 北京：{weather}，{temp}℃"]
+if wind or level:
+    wind_text = f"{wind}{level}".strip()
+    if wind_text:
+        parts[0] += f"，{wind_text}"
 
-print("\n### 未来预报")
-print("| 日期 | 星期 | 白天 | 夜间 | 气温 |")
-print("|------|------|------|------|------|")
-for w in v.get("weathers", []):
-    print(f"| {w.get('date','—')} | {w.get('week','—')} | {w.get('weather','—')} | "
-          f"{w.get('nightWeather','—')} | {w.get('temp_day_c','—')}℃ / {w.get('temp_night_c','—')}℃ |")
-
-alarms = v.get("alarms", [])
-if alarms:
-    print("\n### 预警")
-    for a in alarms:
-        print(f"- {a.get('alarmTypeDesc','—')}（{a.get('alarmLevelNoDesc','—')}）：{a.get('alarmDesc','—')}")
-
-indexes = {i.get("name"): i for i in v.get("indexes", [])}
-tips = []
-for name in ("穿衣指数", "运动指数", "紫外线强度指数"):
-    idx = indexes.get(name)
-    if idx and idx.get("level"):
-        tips.append(f"- {name}：{idx['level']} — {idx.get('content', '')}")
-if tips:
-    print("\n### 生活建议")
-    print("\n".join(tips))
+print(parts[0])
 PY

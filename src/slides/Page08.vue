@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 defineProps<{ active: boolean }>()
-const activeTab = ref<'claude' | 'codex'>('claude')
 </script>
 
 <template>
@@ -27,7 +25,7 @@ const activeTab = ref<'claude' | 'codex'>('claude')
           </div>
           <div class="cp-row">
             <span class="cp-num">②</span>
-            <div><strong>/loop</strong> 按固定间隔循环运行；<strong>/goal</strong> 持续直到条件满足</div>
+            <div><strong>/loop</strong> 按固定间隔循环运行</div>
           </div>
           <div class="cp-row">
             <span class="cp-num">③</span>
@@ -36,75 +34,30 @@ const activeTab = ref<'claude' | 'codex'>('claude')
         </div>
       </div>
 
-      <!-- 右侧：Tab 面板 -->
-      <div class="tab-panel">
-        <div class="tab-nav">
-          <button
-            :class="['tab-btn', { active: activeTab === 'claude' }]"
-            @click="activeTab = 'claude'"
-          >◆ Claude Code</button>
-          <button
-            :class="['tab-btn', { active: activeTab === 'codex' }]"
-            @click="activeTab = 'codex'"
-          >◇ Codex App</button>
+      <!-- 右侧：示例 -->
+      <div class="example-panel">
+        <div class="illus-code">
+          <div class="code-label">/loop — 按时间间隔循环运行（单位 s / m / h / d）</div>
+          <pre><code><span class="c"># 语法：/loop [间隔] [提示词]</span>
+/loop 60m 每60分钟提醒我喝水</code></pre>
         </div>
+        <div class="illus-code demo-block">
+          <div class="code-label demo-label">🌤 演示：每 2 分钟查一次北京天气，共 3 次后停止</div>
+          <pre><code>/loop 2m
 
-        <!-- Claude Code Tab -->
-        <div v-if="activeTab === 'claude'" class="tab-content">
-          <div class="illus-code">
-            <div class="code-label">/loop — 按时间间隔循环运行（单位 s / m / h / d）</div>
-            <pre><code><span class="c"># 语法：/loop [间隔] [提示词]</span>
-/loop 2m 检查 CI 状态是否通过
+每 2 分钟执行一次，共执行 3 次后自动停止。
 
-<span class="c"># 省略间隔 → Claude 动态决定频率</span>
-/loop 监控 PR 合并状态
+每次只做：
+1. 读取并执行 @weather skill
+2. 运行 bash weather/scripts/query-beijing.sh
+3. 原样输出脚本返回的那一行文字
 
-<span class="c"># 省略一切 → 运行内置维护提示（巡检模式）</span>
-/loop</code></pre>
-          </div>
-          <div class="illus-code">
-            <div class="code-label">/goal — 持续运行直到条件达成（独立小模型逐轮验证）</div>
-            <pre><code><span class="c"># 语法：/goal "可验证的完成条件"</span>
-/goal "auth 模块所有测试通过，且 lint 干净"</code></pre>
-          </div>
-          <div class="illus-code demo-block">
-            <div class="code-label demo-label">🌤 演示：每 2 分钟查一次北京天气，共 3 次后停止</div>
-            <pre><code>/loop 2m 用 beijing-weather skill 查询北京实时天气
-
-<span class="c"># 触发点：2 min ▸ 4 min ▸ 6 min，第 3 次后按 Esc 停止</span></code></pre>
-          </div>
-        </div>
-
-        <!-- Codex App Tab -->
-        <div v-if="activeTab === 'codex'" class="tab-content">
-          <div class="illus-code">
-            <div class="code-label">Automation — 对话内描述 或 TOML 配置文件两种方式</div>
-            <pre><code><span class="c"># 方式 1：直接在对话框告诉 Codex（Thread Automation）</span>
-"每 2 分钟用 $beijing-weather 查一次北京天气，共 3 次后停止"
-
-<span class="c"># 方式 2：TOML 配置 .codex/automations/weather.toml</span>
-prompt   = "用 $beijing-weather skill 查北京实时天气"
-schedule = "*/2 * * * *"  <span class="c"># 每 2 分钟（cron 语法）</span>
-max_runs = 3              <span class="c"># 执行 3 次后自动停止</span></code></pre>
-          </div>
-          <div class="illus-code">
-            <div class="code-label">/goal — 持续运行直到目标达成（跨 session 保持状态）</div>
-            <pre><code><span class="c"># 先在 ~/.codex/config.toml 开启 feature flag</span>
-[features]
-goals = true
-
-<span class="c"># 然后在对话中输入目标：</span>
-/goal "6 分钟内每隔 2 分钟查询北京天气，共 3 次"
-/goal status  <span class="c"># 查看进度</span>
-/goal pause   <span class="c"># 暂停</span>
-/goal clear   <span class="c"># 清除目标</span></code></pre>
-          </div>
-          <div class="illus-code demo-block">
-            <div class="code-label demo-label">🌤 演示：Codex App 版天气查询（同样效果）</div>
-            <pre><code><span class="c"># 在对话中告诉 Codex 即可，无需额外配置</span>
-"帮我每 2 分钟用 $beijing-weather 查一次北京天气，
- 2 min、4 min、6 min 各触发一次，共 3 次后停止"</code></pre>
-          </div>
+要求：
+- 总共只执行 3 次（含第一次立即执行）
+- 第 3 次输出后停止 loop，不要再继续
+- 不要创建或修改任何文件
+- 不要解释、不要标题、不要表格、不要多余说明
+- 每次回复只包含那一行天气文字</code></pre>
         </div>
       </div>
 
@@ -113,53 +66,12 @@ goals = true
 </template>
 
 <style scoped>
-/* Tab 面板容器 */
-.tab-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  min-width: 0;
-}
-
-/* Tab 导航栏 */
-.tab-nav {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 0;
-}
-
-.tab-btn {
-  padding: 8px 22px;
-  border-radius: 8px 8px 0 0;
-  border: 1.5px solid var(--illus-border);
-  border-bottom: none;
-  background: rgba(255, 252, 242, 0.38);
-  color: rgba(58, 52, 43, 0.55);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.4px;
-  transition: all 0.18s;
-}
-
-.tab-btn.active {
-  background: rgba(42, 37, 30, 0.92);
-  color: #FFF7DF;
-  border-color: rgba(255, 252, 242, 0.18);
-}
-
-.tab-btn:hover:not(.active) {
-  background: rgba(255, 252, 242, 0.72);
-  color: var(--illus-text);
-}
-
-/* Tab 内容区 */
-.tab-content {
+/* 右侧示例面板 */
+.example-panel {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-radius: 0 8px 8px 8px;
-  overflow: visible;
+  min-width: 0;
 }
 
 /* 演示代码块特殊样式 */

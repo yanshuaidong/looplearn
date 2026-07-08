@@ -30,36 +30,42 @@ defineProps<{ active: boolean }>()
           <span class="dot dot-orange">●</span>
           <div>把「只有你知道」的上下文变成「Agent 也知道」的<strong>结构化输入</strong></div>
         </div>
-        <div class="el-point">
-          <span class="dot dot-orange">●</span>
-          <div>Skill 是<strong>编写格式</strong>，Plugin 是<strong>分发方式</strong>，打包后队友一次安装即可</div>
+        <div class="el-prose">
+          <p>Skills（技能文件）解决的是一个每次都在浪费的成本：每次新对话，Agent 都要从零推断你的项目规范。</p>
+          <p>Skill 是一个包含 <code>SKILL.md</code> 文件的文件夹，写明了项目约定、构建步骤、"我们不这样做是因为那次事故"等知识。Agent 在每次会话开始时加载 Skill，而不是每次都重新猜测。</p>
         </div>
-        <div class="illus-code">
-          <div class="code-label">SKILL.md 示例</div>
-          <pre><code>---
-name: project-conventions
-description: 代码规范和构建步骤
----
-
-## 技术栈
-- Node.js 20 + TypeScript + Fastify
-- 测试框架：Vitest
-
-## 构建命令
-- pnpm test
-- pnpm typecheck
-
-## 禁止事项
-- 不得在业务层直接写 SQL
-- 不得提交真实密钥</code></pre>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <style scoped>
 .dot-orange { color: #C28E2D; flex-shrink: 0; }
-.illus-code pre { padding: 12px 14px; max-height: 300px; }
-.illus-code code { font-size: 11px; line-height: 1.55; }
+
+.el-prose {
+  background: var(--illus-surface);
+  border: 1.5px solid var(--illus-border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: var(--illus-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.el-prose p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--illus-text-secondary);
+  line-height: 1.74;
+}
+
+.el-prose code {
+  background: rgba(194, 142, 45, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #8A5A2D;
+  font-weight: 500;
+}
 </style>

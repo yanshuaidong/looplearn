@@ -1,8 +1,8 @@
 ---
 name: beijing-weather
 description: >-
-  查询北京市实时天气、空气质量与未来 7 天预报。用户询问北京天气、气温、
-  天气预报、穿衣建议时使用。测试 Skill，仅支持北京，不支持其他城市。
+  查询北京市当天天气，返回一行纯文字：调用时间 + 当天天气。用户 @weather
+  或询问北京天气时使用。测试 Skill，仅支持北京。
 ---
 
 # 北京天气查询
@@ -11,83 +11,50 @@ description: >-
 
 ## 何时使用
 
-- 用户问「北京天气」「北京今天多少度」「北京未来几天会下雨吗」
-- 用户 @weather 或明确要求用本 Skill
+- 用户 @weather 或问「北京天气」「北京今天多少度」
+- 用户明确要求用本 Skill
 
 ## 城市限制
 
 | 请求 | 处理 |
 |------|------|
 | 北京 / 北京市 | 正常查询 |
-| 其他城市 | 礼貌说明：本 Skill 为测试用途，仅支持北京 |
+| 其他城市 | 仅回复：本 Skill 为测试用途，仅支持北京 |
 
-北京固定 cityId：`101010100`（不要使用其他 ID）。
+北京固定 cityId：`101010100`。
 
 ## 查询步骤
 
-1. **优先**执行脚本：`bash weather/scripts/query-beijing.sh`
-2. 若脚本不可用，用 Shell 工具请求 API（见下方）
-3. 解析 JSON 的 `value[0]`
-4. 按「输出模板」回复用户
+1. 执行：`bash weather/scripts/query-beijing.sh`
+2. 脚本不可用则用 Shell 请求 API（见下方），自行拼一行文字
+3. **只输出脚本/拼好的那一行文字**，不要加标题、表格、分析、建议或额外说明
 
 ## API
-
-| 项 | 值 |
-|----|-----|
-| 地址 | `https://aider.meizu.com/app/weather/listWeather` |
-| 方法 | GET |
-| 参数 | `cityIds=101010100` |
 
 ```bash
 curl -sL "https://aider.meizu.com/app/weather/listWeather?cityIds=101010100"
 ```
 
-> 须使用 `https`，`http` 会 301 重定向。
+须使用 `https`。成功时 `code` 为 `"200"`，数据在 `value[0]`。
 
-## 响应结构
+## 输出格式（唯一允许格式）
 
-成功时 `code` 为 `"200"`，数据在 `value[0]`：
+**一行纯文字**，无 Markdown、无换行、无多余字段：
 
-| 字段路径 | 含义 |
-|----------|------|
-| `city` | 城市名 |
-| `realtime.weather` | 当前天气现象 |
-| `realtime.temp` | 当前气温（℃） |
-| `realtime.sendibleTemp` | 体感温度（℃） |
-| `realtime.wD` / `realtime.wS` | 风向 / 风力 |
-| `realtime.time` | 观测时间 |
-| `pm25.quality` / `pm25.aqi` | 空气质量等级 / AQI |
-| `weathers[]` | 未来 7 天预报 |
-| `weathers[].date` / `week` | 日期 / 星期 |
-| `weathers[].weather` / `nightWeather` | 白天 / 夜间天气 |
-| `weathers[].temp_day_c` / `temp_night_c` | 白天 / 夜间气温 |
-| `alarms[]` | 气象预警（可能为空） |
-| `indexes[]` | 生活指数（穿衣、运动、紫外线等） |
+```
+{调用时间} 北京：{当天天气现象}，{气温}℃
+```
 
-## 输出模板
+- **调用时间**：执行查询时的本地时间，格式 `YYYY-MM-DD HH:MM`
+- **当天天气**：取 `value[0].realtime` 的 `weather`、`temp`（℃）；可选附带 `wD`、`wS`
 
-```markdown
-## 北京天气
+示例：
 
-**实时**（{realtime.time}）：{realtime.weather}，{realtime.temp}℃（体感 {realtime.sendibleTemp}℃），{realtime.wD} {realtime.wS}
-
-**空气质量**：{pm25.quality}，AQI {pm25.aqi}
-
-### 未来预报
-| 日期 | 星期 | 白天 | 夜间 | 气温 |
-|------|------|------|------|------|
-| {date} | {week} | {weather} | {nightWeather} | {temp_day_c}℃ / {temp_night_c}℃ |
-
-### 生活建议（可选）
-- 穿衣：{indexes 中「穿衣指数」的 level 与 content}
-- 运动：{indexes 中「运动指数」的 level 与 content}
-
-### 预警（有则展示）
-- {alarmTypeDesc}（{alarmLevelNoDesc}）：{alarmDesc}
+```
+2026-07-08 21:30 北京：晴，32℃，东北风3级
 ```
 
 ## 错误处理
 
-- `code` ≠ `"200"` 或 `value` 为空：告知接口异常，可重试一次
-- 网络失败：说明无法连接天气服务
-- 非北京城市：说明本 Skill 仅支持北京
+- 接口失败：只回复一行，如 `2026-07-08 21:30 北京天气查询失败，请稍后重试`
+- 非北京城市：只回复一行说明仅支持北京
