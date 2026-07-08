@@ -38,15 +38,11 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
           </div>
           <div class="el-point">
             <span class="dot dot-pink">●</span>
-            <div>这种分离也应用于<strong>停止条件</strong>：<code>/goal</code> 用独立模型判断是否完成</div>
-          </div>
-          <div class="el-point">
-            <span class="dot dot-pink">●</span>
             <div>一个你真正信任的验证者，是你<strong>敢走开</strong>的唯一理由</div>
           </div>
           <div class="el-point">
             <span class="dot dot-yellow">●</span>
-            <div>子 Agent 消耗更多 Token，只在<strong>第二意见值得付费</strong>的地方使用</div>
+            <div>多跑一个 Checker 更费 Token，只在需要<strong>独立验收</strong>时用</div>
           </div>
         </div>
       </div>
@@ -99,12 +95,15 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
 .mc-checker .mc-model { background: rgba(78, 103, 80, 0.13); color: #4E6750; }
 .mc-arrow { font-size: 24px; color: #4E6750; flex-shrink: 0; }
 
+.el-two-col {
+  align-items: stretch;
+}
+
 .usage-panel {
   display: flex;
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  align-self: stretch;
 }
 
 .usage-block {
@@ -116,14 +115,44 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
   box-shadow: 0 0 0 1px rgba(168, 70, 62, 0.15), var(--illus-shadow) !important;
 }
 
+.usage-block .code-label {
+  flex-shrink: 0;
+}
+
 .usage-markdown {
-  flex: 1;
-  max-height: min(62vh, 560px);
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
-  padding: 14px 16px 16px;
+  overscroll-behavior: contain;
+  padding: 14px 16px;
   font-size: 13px;
   line-height: 1.65;
   color: rgba(255, 247, 223, 0.88);
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(194, 142, 45, 0.44) transparent;
+}
+
+.usage-markdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.usage-markdown::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0;
+}
+
+.usage-markdown::-webkit-scrollbar-thumb {
+  background: rgba(194, 142, 45, 0.4);
+  border-radius: 999px;
+}
+
+.usage-markdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(226, 187, 112, 0.55);
+}
+
+.usage-markdown :deep(> *:last-child) {
+  margin-bottom: 0;
 }
 
 .usage-markdown :deep(h2) {
@@ -207,6 +236,25 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
   border: 1px solid rgba(255, 252, 242, 0.1);
   border-radius: 6px;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(194, 142, 45, 0.32) transparent;
+}
+
+.usage-markdown :deep(pre)::-webkit-scrollbar {
+  height: 4px;
+}
+
+.usage-markdown :deep(pre)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.usage-markdown :deep(pre)::-webkit-scrollbar-thumb {
+  background: rgba(194, 142, 45, 0.28);
+  border-radius: 999px;
+}
+
+.usage-markdown :deep(pre)::-webkit-scrollbar-thumb:hover {
+  background: rgba(226, 187, 112, 0.42);
 }
 
 .usage-markdown :deep(pre code) {

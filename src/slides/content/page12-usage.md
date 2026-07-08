@@ -68,4 +68,4 @@ node -e "import('./src/lib/celsiusToFahrenheit.ts').then(m => console.log(m.cels
   └── Checker → 只读审查 + type-check          → 「其实还有问题」
 ```
 
-Page 12 那句「只在第二意见值得付费的地方使用子 Agent」在这里的意思是：**写代码便宜，独立验收贵，但验收才是你敢 Loop 无人值守的前提。**
+Page 12 那句「多跑一个 Checker 更费 Token，只在需要独立验收时用」在这里的意思是：**写代码便宜，独立验收贵，但验收才是你敢 Loop 无人值守的前提。**
