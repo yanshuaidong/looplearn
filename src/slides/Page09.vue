@@ -20,7 +20,15 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
           </div>
         </div>
         <div class="core-statement">
-          Worktree 让并行变得可控：每个 Agent 有自己的工作目录、自己的分支、共享同一段历史。
+          <span class="term-tip" tabindex="0">
+            Worktree
+            <span class="term-tip-body" role="tooltip">
+              <span class="tip-lead">同一 Git 仓库开出多个工作目录，各检出一个分支，共享提交历史。</span>
+              <span class="tip-row tip-before"><strong>之前</strong>：给人用——手动 <code>git worktree add</code>，在不同分支上并行开发。</span>
+              <span class="tip-row tip-now"><strong>现在</strong>：给 Agent 用——每个子 Agent 自动获得独立目录 + 分支，改完再清理。</span>
+            </span>
+          </span>
+          让并行变得可控：每个 Agent 有自己的工作目录、自己的分支、共享同一段历史。
         </div>
         <div class="concept-list">
           <div class="el-point">
@@ -33,11 +41,27 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
           </div>
           <div class="el-point">
             <span class="dot dot-green">●</span>
-            <div>Claude Code 支持 <code>isolation: worktree</code>，完成后<strong>自动清理</strong></div>
+            <div>Claude Code 支持
+              <span class="term-tip term-tip--code" tabindex="0">
+                <code>isolation: worktree</code>
+                <span class="term-tip-body term-tip-body--below" role="tooltip">
+                  <span class="tip-lead">子 Agent 的 YAML 配置项，写在 <code>.claude/agents/*.md</code> 头部。</span>
+                  <span class="tip-row tip-before"><strong>之前</strong>：子 Agent 默认和主会话共用工作区，并行时容易改同一文件。</span>
+                  <span class="tip-row tip-now"><strong>现在</strong>：加上这项，Claude Code 自动开 worktree + 分支，任务结束自动清理。</span>
+                </span>
+              </span>，完成后<strong>自动清理</strong></div>
           </div>
           <div class="el-point">
             <span class="dot dot-yellow">●</span>
-            <div>消除了<strong>机械冲突</strong>，但你的 Review 带宽才是并行数量的真正上限</div>
+            <div>
+              <span class="term-tip term-tip--phrase" tabindex="0">
+                消除了<strong>机械冲突</strong>，但你的 Review 带宽才是并行数量的真正上限
+                <span class="term-tip-body" role="tooltip">
+                  <span class="tip-lead">Worktree 解决了<strong>文件打架</strong>——并行 Agent 不会互相覆盖同一行。</span>
+                  <span class="tip-row">但两个分支都改完后，<strong>审哪一份、合哪一份</strong>，还是你的事；你能同时 review 几条，才是并行的真正上限。</span>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -55,11 +79,129 @@ const usageHtml = computed(() => renderMarkdown(usageMd))
 .dot-green { color: #4E6750; flex-shrink: 0; }
 .dot-yellow { color: #C28E2D; flex-shrink: 0; }
 
+.core-statement {
+  overflow: visible;
+}
+
+.term-tip {
+  position: relative;
+  cursor: help;
+  color: #8A5A2D;
+  border-bottom: 1.5px dashed rgba(194, 142, 45, 0.55);
+  outline: none;
+}
+
+.term-tip:hover,
+.term-tip:focus-visible {
+  color: #6B4518;
+  border-bottom-color: rgba(194, 142, 45, 0.85);
+}
+
+.term-tip-body {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 20;
+  width: min(320px, 78vw);
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(93, 67, 33, 0.18);
+  background: #FFF7DF;
+  box-shadow: 0 10px 28px rgba(68, 54, 28, 0.14);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #3A342B;
+  text-align: left;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.term-tip:hover .term-tip-body,
+.term-tip:focus-visible .term-tip-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tip-lead {
+  display: block;
+  margin-bottom: 8px;
+  color: #2D291F;
+  font-weight: 600;
+}
+
+.tip-row {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tip-row strong {
+  font-weight: 700;
+}
+
+.tip-before {
+  color: #A8463E;
+}
+
+.tip-now {
+  color: #4E6750;
+}
+
+.term-tip-body code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.92em;
+  background: rgba(78, 103, 80, 0.12);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: #4E6750;
+  font-weight: 600;
+}
+
+.term-tip--code {
+  color: inherit;
+  border-bottom: none;
+}
+
+.term-tip--code code {
+  cursor: help;
+  border-bottom: 1.5px dashed rgba(78, 103, 80, 0.45);
+}
+
+.term-tip--code:hover code,
+.term-tip--code:focus-visible code {
+  border-bottom-color: rgba(78, 103, 80, 0.85);
+}
+
+.term-tip-body--below {
+  bottom: auto;
+  top: calc(100% + 10px);
+  transform: translateY(-4px);
+}
+
+.term-tip--code:hover .term-tip-body--below,
+.term-tip--code:focus-visible .term-tip-body--below {
+  transform: translateY(0);
+}
+
+.term-tip--phrase {
+  border-bottom: 1.5px dashed rgba(194, 142, 45, 0.45);
+}
+
+.term-tip--phrase:hover,
+.term-tip--phrase:focus-visible {
+  border-bottom-color: rgba(194, 142, 45, 0.85);
+}
+
 .concept-list {
   margin-top: 18px;
   display: flex;
   flex-direction: column;
   gap: 9px;
+  overflow: visible;
 }
 
 .el-two-col {
