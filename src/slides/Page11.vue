@@ -24,7 +24,7 @@ defineProps<{ active: boolean }>()
         </div>
         <div class="el-point">
           <span class="dot dot-purple">●</span>
-          <div>基于 MCP 协议，读取 Issue 追踪、查询数据库、调用 API、发 Slack 消息</div>
+          <div>基于 MCP 协议，读取 Issue 追踪、查询数据库、调用 API、发企业微信消息</div>
         </div>
         <div class="el-point">
           <span class="dot dot-purple">●</span>
@@ -37,7 +37,7 @@ defineProps<{ active: boolean }>()
         <div class="connector-tools">
           <div class="ct-item">GitHub</div>
           <div class="ct-item">Linear</div>
-          <div class="ct-item">Slack</div>
+          <div class="ct-item">企业微信</div>
           <div class="ct-item">数据库</div>
           <div class="ct-item">Staging API</div>
           <div class="ct-item">CI / CD</div>

@@ -10,7 +10,14 @@ defineProps<{ active: boolean }>()
         <h2 class="summary-title">Build the Loop.<br/>Stay the Engineer.</h2>
         <p class="summary-sub">构建循环。保持工程师的身份。</p>
         <div class="core-statement">
-          Loop design is harder than prompt engineering, not easier. The leverage point moved.
+          <span class="term-tip term-tip--phrase" tabindex="0">
+            Loop design is harder than prompt engineering, not easier. The leverage point moved.
+            <span class="term-tip-body" role="tooltip">
+              <span class="tip-lead">设计 Loop 比写 Prompt 更难；真正见效的关键，也从「写好一句指令」变成了「设计整条循环」。</span>
+              <span class="tip-row tip-before"><strong>以前</strong>：拼一句好 Prompt，往往就能解决问题。</span>
+              <span class="tip-row tip-now"><strong>现在</strong>：要规划任务边界、验证方式、人类何时介入——这些才决定 Loop 好不好用。</span>
+            </span>
+          </span>
           <span class="sq-author">— Addy Osmani · Google Chrome</span>
         </div>
       </div>
@@ -18,39 +25,39 @@ defineProps<{ active: boolean }>()
       <div class="summary-content split-right">
         <div class="practices-header">
           <h3 class="practices-title">最佳实践总结</h3>
-          <p class="practices-desc">以下是构建可靠 Loop 的核心原则，每条都对应一类常见的失败。</p>
+          <p class="practices-desc">让 Loop 更稳、更好用的几条经验，照着做能少踩很多坑。</p>
         </div>
         <table class="practices-table">
           <thead>
             <tr>
-              <th>原则</th>
-              <th>具体做法</th>
+              <th>要点</th>
+              <th>怎么做</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>从窄任务开始</td>
-              <td>每次只定义一个有明确边界的目标，宽泛的目标让 Agent 无法判断哪些文件、哪些验证信号是相关的</td>
+              <td>从小任务做起</td>
+              <td>一次只做一件清楚的小事。目标太大太模糊，Agent 就不知道该动哪里、怎么判断做完了</td>
             </tr>
             <tr>
-              <td>告诉 Agent 如何验证</td>
-              <td>在指令中直接写明验证命令（<code>pnpm test test/auth</code>）、验收场景或 API 端点，让"完成"可测量</td>
+              <td>说清楚怎么验收</td>
+              <td>指令里写清楚怎么检查，比如跑哪条测试（<code>pnpm test test/auth</code>）、要过哪些场景。这样才知道算不算做完</td>
             </tr>
             <tr>
-              <td>偏好小的可逆变更</td>
-              <td>要求 Agent 做最小的连贯修改，运行验证后再扩展；大范围推测性重写难以判断是哪个假设出了问题</td>
+              <td>少改、先验证</td>
+              <td>让 Agent 每次只改一小块，检查通过再继续。一次改太多，错了也难查是哪里出问题</td>
             </tr>
             <tr>
-              <td>尊重现有代码模式</td>
-              <td>让 Agent 先检查相邻的实现，复用现有组件，遵循现有命名，避免引入不必要的新抽象</td>
+              <td>照着项目已有写法来</td>
+              <td>让 Agent 先看附近代码，复用现有组件和命名，别轻易发明新套路</td>
             </tr>
             <tr>
-              <td>人类保持判断席位</td>
-              <td>Agent 处理证据收集和机械性修复；产品判断、架构决策、最终 Review 保留给人类</td>
+              <td>重要决定还是你来</td>
+              <td>Agent 负责查资料和动手改；产品方向、架构取舍、最后把关留给你</td>
             </tr>
             <tr>
-              <td>沉淀可复用 Loop</td>
-              <td>当某个 Loop 跑得好的时候，把它固化为 Skill 文件或标准化的触发器，降低未来的重复成本</td>
+              <td>跑顺了就存下来</td>
+              <td>某次流程特别好用，就写成 Skill 或固定命令，下次直接复用，省得重复搭</td>
             </tr>
           </tbody>
         </table>
@@ -68,9 +75,70 @@ defineProps<{ active: boolean }>()
 </template>
 
 <style scoped>
-.slide-summary { overflow: hidden; }
+.slide-summary { overflow: visible; }
 
 .summary-content { position: relative; text-align: left; }
+.core-statement { overflow: visible; }
+
+.term-tip {
+  position: relative;
+  cursor: help;
+  color: inherit;
+  border-bottom: 1.5px dashed rgba(194, 142, 45, 0.45);
+  outline: none;
+}
+
+.term-tip:hover,
+.term-tip:focus-visible {
+  border-bottom-color: rgba(194, 142, 45, 0.85);
+}
+
+.term-tip-body {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  z-index: 20;
+  width: min(340px, 82vw);
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(93, 67, 33, 0.18);
+  background: #FFF7DF;
+  box-shadow: 0 10px 28px rgba(68, 54, 28, 0.14);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #3A342B;
+  text-align: left;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.term-tip:hover .term-tip-body,
+.term-tip:focus-visible .term-tip-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tip-lead {
+  display: block;
+  margin-bottom: 8px;
+  color: #2D291F;
+  font-weight: 600;
+}
+
+.tip-row {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tip-row strong { font-weight: 700; }
+.tip-before { color: #A8463E; }
+.tip-now { color: #4E6750; }
+
 .summary-title {
   font-family: Georgia, 'Times New Roman', 'Songti SC', serif;
   font-size: clamp(44px, 5vw, 70px);

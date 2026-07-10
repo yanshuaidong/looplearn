@@ -19,7 +19,7 @@ defineProps<{ active: boolean }>()
         <div class="steps-phases">
           <div class="phase">
             <div class="phase-badge">阶段 1 · 只读</div>
-            <div class="phase-desc">发现问题 → 写 TODO.md</div>
+            <div class="phase-desc">阅读需求文档 → 写 TODO.md</div>
             <div class="phase-human">人工：读 TODO 决定今天做什么</div>
           </div>
           <div class="phase">
@@ -29,7 +29,7 @@ defineProps<{ active: boolean }>()
           </div>
           <div class="phase">
             <div class="phase-badge">阶段 3 · 半自动</div>
-            <div class="phase-desc">开 Draft PR → 通知 Slack</div>
+            <div class="phase-desc">开 Draft PR → 通知企业微信</div>
             <div class="phase-human">人工：点击 Merge</div>
           </div>
           <div class="phase">
@@ -44,9 +44,9 @@ defineProps<{ active: boolean }>()
             推荐第一个 Loop（零风险版）
           </div>
           <div class="tip-code">
-            <code>/loop "读取昨天的 CI 失败记录，将按优先级排序的摘要写入 TODO.md。不要编辑源代码文件，不要开 PR。" --schedule "0 8 * * 1-5"</code>
+            <code>/loop "读取产品最新的需求文档，整理成按优先级排序的待办摘要，写入 TODO.md。不要编辑源代码文件，不要开 PR。" --schedule "0 8 * * 1-5"</code>
           </div>
-          <div class="tip-note">这个 Loop 每天早上帮你整理好问题清单，风险几乎为零，是理解 Loop 行为的最好起点。</div>
+          <div class="tip-note">这个 Loop 每天早上根据最新需求帮你整理好待办清单，风险几乎为零，是理解 Loop 行为的最好起点。</div>
         </div>
       </div>
     </div>

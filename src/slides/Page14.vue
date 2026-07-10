@@ -37,7 +37,7 @@ defineProps<{ active: boolean }>()
         </div>
         <div class="af-step">
           <div class="af-icon"><span class="af-logo af-logo-connectors" /></div>
-          <div><div class="af-label">Connectors</div><div class="af-desc">自动开 PR · 关联 Ticket · 通知 Slack</div></div>
+          <div><div class="af-label">Connectors</div><div class="af-desc">自动开 PR · 关联 Ticket · 通知企业微信</div></div>
         </div>
         <div class="af-step">
           <div class="af-icon"><span class="af-logo af-logo-state" /></div>
